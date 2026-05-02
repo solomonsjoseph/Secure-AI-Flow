@@ -1,0 +1,20 @@
+name: Security Baseline
+
+on:
+  pull_request:
+  push:
+    branches: [ main ]
+
+permissions:
+  contents: read
+
+jobs:
+  methodology-verification:
+    name: Verify Secure-AI-Flow methodology files
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Verify methodology baseline
+        run: bash scripts/verify-methodology.sh

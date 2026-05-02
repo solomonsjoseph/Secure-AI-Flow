@@ -1,0 +1,21 @@
+name: Security Methodology Check
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+permissions:
+  contents: read
+
+jobs:
+  methodology-structure:
+    name: Verify Secure-AI-Flow structure
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Run methodology structure check
+        run: bash scripts/check-security-methodology.sh

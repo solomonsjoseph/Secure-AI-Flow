@@ -1,0 +1,9 @@
+# Configure actual owners before relying on this.
+# Branch protection rules must be configured in GitHub settings for CODEOWNERS to enforce review.
+
+* @solomonsjoseph
+SECURITY-OPERATING-CONTRACT.md @solomonsjoseph
+governance/** @solomonsjoseph
+context/** @solomonsjoseph
+ci/** @solomonsjoseph
+.github/** @solomonsjoseph

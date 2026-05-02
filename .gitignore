@@ -1,0 +1,21 @@
+# OS/editor noise
+.DS_Store
+Thumbs.db
+*.swp
+*.tmp
+
+# Local environment/secrets
+.env
+.env.*
+*.pem
+*.key
+*.p12
+*.pfx
+
+# Build/cache noise
+node_modules/
+__pycache__/
+.pytest_cache/
+.coverage
+dist/
+build/

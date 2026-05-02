@@ -1,0 +1,18 @@
+name: Security Methodology Guard
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  verify-methodology:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify methodology structure
+        run: bash scripts/verify-methodology.sh
