@@ -19,3 +19,6 @@ jobs:
 
       - name: Run methodology structure check
         run: bash scripts/check-security-methodology.sh
+
+      - name: Run requirement traceability check
+        run: bash scripts/check-requirement-traceability.sh
