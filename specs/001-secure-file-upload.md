@@ -83,7 +83,7 @@ Users can submit files for system processing without exposing the application to
 
 ## Security Requirements
 
-- AUTH-001
+- AUTHN-001
 - AUTHZ-001
 - VAL-001
 - VAL-002
@@ -93,8 +93,8 @@ Users can submit files for system processing without exposing the application to
 - DATA-003
 - LOG-001
 - LOG-002
-- TEST-001
-- TEST-002
+- ERR-001
+- AI-002
 
 ## UX Requirements
 
