@@ -26,6 +26,7 @@ required=(
   "context/15-security-stress-test-matrix.md"
   "ci/security-gates.md"
   "references/official-source-map.md"
+  "scripts/check-requirement-traceability.sh"
 )
 
 missing=0
@@ -44,5 +45,7 @@ grep -q "Security" SECURITY-OPERATING-CONTRACT.md
 grep -q "Data" context/02-data-classification-and-privacy.md
 grep -q "Threat" context/04-threat-model.md
 grep -q "Reviewer" context/13-reviewer-playbook.md
+
+bash scripts/check-requirement-traceability.sh
 
 echo "Secure-AI-Flow methodology structure verified."

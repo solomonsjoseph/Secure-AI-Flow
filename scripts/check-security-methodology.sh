@@ -28,6 +28,7 @@ required_files=(
   "specs/001-secure-file-upload.md"
   "ci/security-gates.md"
   ".github/pull_request_template.md"
+  "scripts/check-requirement-traceability.sh"
 )
 
 missing=0

@@ -116,6 +116,14 @@ Secure-AI-Flow separates the AI delivery process into four roles.
     verify-methodology.sh
 ```
 
+## Automated Methodology Checks
+
+The repository includes automated checks for:
+
+- Structure validation with `scripts/check-security-methodology.sh`.
+- Methodology verification with `scripts/verify-methodology.sh`.
+- Requirement traceability validation with `scripts/check-requirement-traceability.sh`.
+
 ## How to Use This Methodology
 
 ### Step 1: Fill Governance First
