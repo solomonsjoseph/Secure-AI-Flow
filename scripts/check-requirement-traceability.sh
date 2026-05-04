@@ -8,16 +8,17 @@ import sys
 
 requirements_path = Path("context/06-security-requirements.md")
 specs_dir = Path("specs")
-id_pattern = re.compile(r"\b[A-Z][A-Z0-9]+-\d{3}\b")
+valid_id_pattern = re.compile(r"^[A-Z][A-Z0-9]+-[0-9]{3}$")
+source_id_pattern = re.compile(r"\b[A-Z][A-Z0-9]+-\d{3}\b")
 
-valid_ids = set(id_pattern.findall(requirements_path.read_text(encoding="utf-8")))
+valid_ids = set(source_id_pattern.findall(requirements_path.read_text(encoding="utf-8")))
 
-invalid_refs = []
+errors = []
 for spec_path in sorted(specs_dir.glob("*.md")):
     lines = spec_path.read_text(encoding="utf-8").splitlines()
     in_security_requirements = False
 
-    for line in lines:
+    for line_number, line in enumerate(lines, start=1):
         if line.startswith("## "):
             in_security_requirements = line.strip() == "## Security Requirements"
             continue
@@ -25,15 +26,31 @@ for spec_path in sorted(specs_dir.glob("*.md")):
         if not in_security_requirements:
             continue
 
-        for requirement_id in id_pattern.findall(line):
-            if requirement_id not in valid_ids:
-                invalid_refs.append((spec_path, requirement_id))
+        stripped = line.strip()
+        if not stripped or not stripped.startswith("-"):
+            continue
 
-if invalid_refs:
-    for spec_path, requirement_id in invalid_refs:
+        bullet = stripped[1:].strip()
+        if bullet == "":
+            continue
+
+        first_token = bullet.split()[0]
+        if not valid_id_pattern.fullmatch(first_token):
+            issue = "malformed ID" if ("-" in first_token or any(c.isdigit() for c in first_token)) else "missing ID"
+            value = first_token if issue == "malformed ID" else bullet
+            errors.append((spec_path, line_number, value, issue))
+            continue
+
+        if first_token not in valid_ids:
+            errors.append((spec_path, line_number, first_token, "unknown ID"))
+
+if errors:
+    for spec_path, line_number, value, issue in errors:
         print("Invalid security requirement ID reference:", file=sys.stderr)
         print(f"  file: {spec_path}", file=sys.stderr)
-        print(f"  invalid ID: {requirement_id}", file=sys.stderr)
+        print(f"  line: {line_number}", file=sys.stderr)
+        print(f"  issue: {issue}", file=sys.stderr)
+        print(f"  value: {value}", file=sys.stderr)
         print(f"  valid IDs source: {requirements_path}", file=sys.stderr)
     sys.exit(1)
 
